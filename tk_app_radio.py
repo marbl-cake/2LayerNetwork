@@ -15,9 +15,9 @@ class Radio:
 
         # Liste per gli UID
         self.uidList = []
-        self.studentsList = []  # Categoria 3
-        self.teachersList = []  # Categoria 1
-        self.specialsList = []  # Categoria 2
+        self.ordinaryList = []  # Categoria 3
+        self.emergencyList = []  # Categoria 1
+        self.disabilitiesList = []  # Categoria 2
 
     
     # Funzione per inviare messaggi al nodo slave
@@ -76,7 +76,7 @@ class ListaConteggiApp(tk.Tk, Radio):
         self.bind("<Escape>", self.exit_fullscreen)
 
 
-        self.font_text = ("Helvetica", 25)
+        self.font_text = ("Helvetica", 15)
         self.font_numbers = ("Helvetica", 150)
 
         self.total_uids_text = tk.StringVar()
@@ -104,10 +104,10 @@ class ListaConteggiApp(tk.Tk, Radio):
 
 
     def update_numbers(self):
-        self.total_uids_text.set(f"Registered UIDs: {len([])}")
-        self.number_ordinary.set(f"{len([])}")
-        self.number_emergency.set(f"{len([])}")
-        self.number_disabilities.set(f"{len([])}")
+        self.total_uids_text.set(f"Registered UIDs: {len(self.uidList)}")
+        self.number_ordinary.set(f"{len(self.studentsList)}")
+        self.number_emergency.set(f"{len(self.emergencyList)}")
+        self.number_disabilities.set(f"{len(self.disabilitiesList)}")
 
 
     def create_upper(self, frame:tk.Frame):
@@ -241,15 +241,15 @@ class ListaConteggiApp(tk.Tk, Radio):
 
                         if int(category) == 1:
                             print("Categoria: Docenti")
-                            self.teachersList.append(uid)
+                            self.emergencyList.append(uid)
 
                         elif int(category) == 2:
                             print("Categoria: Invalidi")
-                            self.specialsList.append(uid)
+                            self.disabilitiesList.append(uid)
 
                         elif int(category) == 3:
                             print("Categoria: Studenti")
-                            self.studentsList.append(uid)
+                            self.ordinaryList.append(uid)
 
                         else:
                             print("Formato invalido. UID aggiunto solo alla lista principale.")
@@ -260,11 +260,11 @@ class ListaConteggiApp(tk.Tk, Radio):
                         print("[i] - Tag già registrato")
                 else:
                     # Sovrascrivi il testo nella finestra principale
-                    if uid in self.teachersList:
-                        self.show_message(f"TEACHER AT NODE {headerFromNode}\nUID: {uid}\n{datetime.now()}")
-                    elif uid in self.specialsList:
-                        self.show_message(f"HANDICAPPED AT NODE {headerFromNode}\nUID: {uid}\n{datetime.now()}")
-                    elif uid in self.studentsList:
+                    if uid in self.emergencyList:
+                        self.show_message(f"EMERGENCY SQUAD MEMBER AT NODE {headerFromNode}\nUID: {uid}\n{datetime.now()}")
+                    elif uid in self.disabilitiesList:
+                        self.show_message(f"PERSON WITH DISABILITIES AT NODE {headerFromNode}\nUID: {uid}\n{datetime.now()}")
+                    elif uid in self.ordinaryList:
                         self.show_message(f"STUDENT AT NODE {headerFromNode}\nUID: {uid}\n{datetime.now()}")
                     else:
                         self.show_message("Not registered tag")
