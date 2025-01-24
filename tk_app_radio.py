@@ -105,7 +105,7 @@ class ListaConteggiApp(tk.Tk, Radio):
 
     def update_numbers(self):
         self.total_uids_text.set(f"Registered UIDs: {len(self.uidList)}")
-        self.number_ordinary.set(f"{len(self.studentsList)}")
+        self.number_ordinary.set(f"{len(self.ordinaryList)}")
         self.number_emergency.set(f"{len(self.emergencyList)}")
         self.number_disabilities.set(f"{len(self.disabilitiesList)}")
 

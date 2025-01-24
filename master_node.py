@@ -1,4 +1,3 @@
-from master_node_monitor import ListaConteggiApp
 import tkinter as tk
 import time
 from pyrf24 import RF24, RF24_PA_MAX, RF24_250KBPS, RF24Network, RF24NetworkHeader
@@ -42,8 +41,8 @@ def flush_buffers():
 
 
 def setup():
-    print("[i] - Master unit initialized")
-    radio.begin()
+    if radio.begin():
+        print("[i] - Master unit initialized")
     network.begin(90, address)  # Canale 90, nodo 0
     radio.setPALevel(RF24_PA_MAX)
     radio.setDataRate(RF24_250KBPS)

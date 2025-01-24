@@ -41,8 +41,9 @@ def flush_buffers():
 
 # Inizializzazione del nodo master
 def setup():
-    print("[i] - Master unit initialized")
-    radio.begin()  # Inizializza la radio
+    if radio.begin():
+        print("[i] - Master unit initialized")
+          # Inizializza la radio
     network.begin(90, address)  # Canale 90, nodo 0
     radio.setPALevel(RF24_PA_MAX)
     radio.setDataRate(RF24_250KBPS)
@@ -91,7 +92,7 @@ def loop(app):
                     if uid in teachersList:
                         app.update_message(f"TEACHER AT NODE {headerFromNode}\nUID: {uid}\n{datetime.now()}")
                     elif uid in specialsList:
-                        app.update_message(f"HANDICAPPED AT NODE {headerFromNode}\nUID: {uid}\n{datetime.now()}")
+                        app.update_message(f"SPECIAL NEEDING AT NODE {headerFromNode}\nUID: {uid}\n{datetime.now()}")
                     elif uid in studentsList:
                         app.update_message(f"STUDENT AT NODE {headerFromNode}\nUID: {uid}\n{datetime.now()}")
                     else:
@@ -154,7 +155,7 @@ class ListaConteggiApp:
         self.lista1_count.set(f"Registered UIDs: {len(self.uidList)}")
         self.lista2_count.set(f"Teachers: {len(self.teachersList)}")
         self.lista3_count.set(f"Students: {len(self.studentsList)}")
-        self.lista4_count.set(f"Handicapped: {len(self.specialsList)}")
+        self.lista4_count.set(f"Special needings: {len(self.specialsList)}")
 
     def resize_text(self, event):
         new_font_size = max(12, int(event.width / 50))
