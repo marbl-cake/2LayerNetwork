@@ -268,6 +268,7 @@ class ListaConteggiApp(tk.Tk, Radio):
                         self.show_message(f"STUDENT AT NODE {headerFromNode}\nUID: {uid}\n{datetime.now()}")
                     else:
                         self.show_message("Not registered tag")
+                    self.update_numbers()
             else:
                 print("[!] Payload vuoto.")
 
